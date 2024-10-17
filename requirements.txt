@@ -1,1 +1,11 @@
 openai===1.16.2
+pandas===2.2.3
+matplotlib
+requests
+msal
+Flask==3.0.3
+gunicorn
+Werkzeug==3.0.4
+azure-functions
+promptflow
+promptflow-tools
