@@ -20,6 +20,9 @@ Playground to try the [OAuth 2.0 authorization feature](https://learn.microsoft.
 
 Proceed by opening the [Jupyter notebook](access-controlling.ipynb), and follow the steps provided.
 
+__NB__: the source file 'policy.xml' is updated by the notebook. The second time it runs, it fails. Copy
+the file policy-orig.xml to policy.xml and then run again.
+
 ### 🗑️ Clean up resources
 
 When you're finished with the lab, you should remove all your deployed resources from Azure to avoid extra charges and keep your Azure subscription uncluttered.
