@@ -11,7 +11,7 @@ __pycache__/
 labs-in-progress/
 params.json
 
-.vscode/
+
 .python_packages/
 .promptflow/
 
