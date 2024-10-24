@@ -9,3 +9,9 @@ Werkzeug==3.0.4
 azure-functions
 promptflow
 promptflow-tools
+
+azure-search-documents==11.4.0
+azure-identity
+langchain
+langchain-openai
+langchain-community

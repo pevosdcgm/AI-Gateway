@@ -147,6 +147,16 @@ param redisCacheSKU string = 'Enterprise_E5'
 @description('Capacity of the Redis Enterprise Cache')
 param redisCacheCapacity int = 2
 
+@description('Specify the family for the sku. C = Basic/Standard, P = Premium.')
+@allowed([
+  'C'
+  'P'
+])
+param redisCacheFamily string = 'C'
+
+@description('Specify a boolean value that indicates whether to allow access via non-SSL ports.')
+param enableNonSslPort bool = false
+
 @description('Eviction Policy of the Redis Enterprise Cache')
 param redisEvictionPolicy string = 'NoEviction'
 
@@ -205,7 +215,7 @@ resource apimService 'Microsoft.ApiManagement/service@2023-05-01-preview' = {
 }
 
 // semantic-caching: additions BEGIN
-
+/* Using simple Redis see below
 resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2022-01-01' = {
   name: '${redisCacheName}-${resourceSuffix}'
   location: redisCacheLocation
@@ -229,7 +239,23 @@ resource redisCache 'Microsoft.Cache/redisEnterprise/databases@2022-01-01' = {
     port: redisPort
   }
 }
+*/
 
+resource redisCache 'Microsoft.Cache/redis@2023-08-01' = {
+  name: '${redisCacheName}-${resourceSuffix}'
+  location: redisCacheLocation
+  properties: {
+    enableNonSslPort: enableNonSslPort
+    minimumTlsVersion: '1.2'
+    sku: {
+      capacity: redisCacheCapacity
+      family: redisCacheFamily
+      name: redisCacheSKU
+    }
+  }
+}
+
+/*
 resource apimCache 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' = {
   name: 'Default'
   parent: apimService
@@ -239,6 +265,20 @@ resource apimCache 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' =
     description: redisEnterprise.properties.hostName
   }
 }
+  */
+
+
+resource apimCache 'Microsoft.ApiManagement/service/caches@2021-12-01-preview' = {
+  name: 'Default'
+  parent: apimService
+  properties: {
+    connectionString: '${redisCache.properties.hostName},password=${redisCache.listKeys().primaryKey},ssl=True,abortConnect=False'
+    useFromLocation: 'default'
+    description: redisCache.properties.hostName
+  }
+}
+
+
 
 resource embeddingsDeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01'  =  [for (config, i) in openAIConfig: if(length(openAIConfig) > 0) {
   name: '${embeddingsDeploymentName}-${redisCache.name}'
