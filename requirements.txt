@@ -9,4 +9,3 @@ Werkzeug==3.0.4
 azure-functions
 promptflow
 promptflow-tools
-IPython
