@@ -523,7 +523,7 @@ resource eventHubResource 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-pr
   name: eventHubName
   parent: eventHubNamespaceResource
   properties: {
-    messageRetentionInDays: 7
+    messageRetentionInDays: 1 //7
     partitionCount: 2
     status: 'Active'
   }
@@ -656,7 +656,8 @@ var throughput_Policy = {
   }
 }
 
-resource cosmosDBAccountResource 'Microsoft.DocumentDB/databaseAccounts@2022-05-15' = {
+//resource cosmosDBAccountResource 'Microsoft.DocumentDB/databaseAccounts@2022-05-15' = {
+resource cosmosDBAccountResource 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
   name: '${cosmosDBAccountName}-${resourceSuffix}'
   location: cosmosDBLocation
   properties: {
@@ -666,6 +667,7 @@ resource cosmosDBAccountResource 'Microsoft.DocumentDB/databaseAccounts@2022-05-
     databaseAccountOfferType: 'Standard'
     locations: cosmosDBLocations
     enableAnalyticalStorage: true
+    enableFreeTier: true
   }
 }
 
