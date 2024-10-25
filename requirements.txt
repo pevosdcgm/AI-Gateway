@@ -12,6 +12,7 @@ promptflow-tools
 
 azure-search-documents==11.4.0
 azure-identity
+azure-cosmos
 langchain
 langchain-openai
 langchain-community
