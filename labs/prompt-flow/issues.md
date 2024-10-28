@@ -17,5 +17,12 @@ Time:2024-10-25T10:14:52.0956013Z</Message></Error>
 
 ```
 
-See:
+# Troubleshooting
+
+## 1
+
 - [microsoft](https://github.com/microsoft/promptflow/issues/1994)
+
+## 2
+
+https://learn.microsoft.com/en-us/azure/ai-studio/how-to/prompt-flow-troubleshoot
